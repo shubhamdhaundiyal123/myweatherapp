@@ -35,5 +35,23 @@
             </div>
         </div>
     </div>
+    <script>
+        const apiKey= "21ace8b1be508fc0d809aa2368f6e4db";
+        const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        const searchBox = document.querySelector(".search input");
+        const searchbtn = document.querySelector(".search button");
+        async function checkWeathere(city){
+            const response= await fetch(apiUrl + city+ `&appid=${apiKey}`);
+            var data = await response.json();
+            console.log(data);
+            document.querySelector(".city").innerHTML=data.name;
+            document.querySelector(".temp").innerHTML=Math.round(data.main.temp)+ "°C";
+            document.querySelector(".humidity").innerHTML=data.main.humidity+"%";
+            document.querySelector(".wind").innerHTML=data.wind.speed+"km/h";
+        }
+        searchbtn.addEventListener("click",function(){
+            checkWeathere(searchBox.value);
+        })
+    </script>
 </body>
 </html>
